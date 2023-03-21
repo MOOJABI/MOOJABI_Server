@@ -1,1 +1,35 @@
+server:
+  port: 8080
+  shutdown: graceful
 
+spring:
+  lifecycle:
+    timeout-per-shutdown-phase: "60s"
+
+  datasource:
+    url: jdbc:mysql://${DB_URL:localhost}:${DB_PORT:3306}/${DB_NAME:moojabi}?useSSL=false&characterEncoding=UTF-8&serverTimezone=Asia/Seoul&allowPublicKeyRetrieval=true
+    username: ${MYSQL_USERNAME:root}
+    password: ${MYSQL_PASSWORD:1234}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: ${DDL:none}
+    properties:
+      hibernate:
+        format_sql: ${FORMAT_SQL:true}
+        show_sql: ${SHOW_SQL:true}
+    database-platform: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+
+secret:
+  secret-key: ${SECRET_KEY:asdfghgfds}
+  access-exp: ${ACCESS_EXP:1800}
+  refresh-exp: ${REFRESH_EXP:7200}
+
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
